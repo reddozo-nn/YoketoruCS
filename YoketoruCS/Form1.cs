@@ -2,6 +2,7 @@ namespace YoketoruCS
 {
     public partial class Form1 : Form
     {
+
         enum State
         {
             None = -1,
@@ -28,7 +29,53 @@ namespace YoketoruCS
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            InitState();
+            UpdateState();
+        }
 
+        void InitState()
+        {
+            if (nextState == State.None)
+            {
+                return;//実行されたらメソッドを抜け、呼び出し元に処理を戻す
+            }
+            currentState = nextState;
+            nextState = State.None;
+
+            // 初期化処理
+            switch (currentState)
+            {
+                case State.Title:
+                    labelGameover.Visible = false;
+                    buttonToTitle.Visible = false;
+                    break;
+
+                case State.Game:
+                    labelTitle.Visible = false;
+                    buttonStart.Visible = false;
+                    break;
+
+
+            }
+        }
+
+        void UpdateState()
+        {
+            switch (currentState) 
+            {
+                case State.Game:
+                    UpdateGame();
+                    break;
+            }
+        }
+
+        void UpdateGame()
+        {
+
+        }
+        private void buttonStart_Click(object sender, EventArgs e)
+        {
+            nextState = State.Game;
         }
     }
 }
