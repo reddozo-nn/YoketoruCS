@@ -68,7 +68,7 @@
             // 
             labelGameover.AutoSize = true;
             labelGameover.Font = new Font("Yu Gothic UI", 23F, FontStyle.Regular, GraphicsUnit.Point);
-            labelGameover.Location = new Point(309, 51);
+            labelGameover.Location = new Point(309, 62);
             labelGameover.Name = "labelGameover";
             labelGameover.Size = new Size(188, 42);
             labelGameover.TabIndex = 2;
@@ -83,6 +83,7 @@
             buttonToTitle.TabIndex = 3;
             buttonToTitle.Text = "タイトルへ";
             buttonToTitle.UseVisualStyleBackColor = true;
+            buttonToTitle.Click += buttonToTitle_Click;
             // 
             // Form1
             // 
