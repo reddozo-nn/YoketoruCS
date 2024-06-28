@@ -8,6 +8,10 @@ namespace YoketoruCS
         [DllImport("user32.dll")]
         public static extern short GetAsyncKeyState(int vKey);
 
+        static int PlayerMax => 1;
+        static int EnemyMax => 4;//“G‚Ì•û‚ðæ‚ÉéŒ¾‚·‚é(ƒvƒŒƒCƒ„[‚Æ“G‚Ío‚Á‚Ï‚È‚µ‚È‚½‚ß)
+        static int ItemMax => 4;
+
         enum State
         {
             None = -1,
@@ -55,6 +59,7 @@ namespace YoketoruCS
 
                     labelGameover.Visible = false;
                     buttonToTitle.Visible = false;
+                    labelClear.Visible = false;
                     break;
 
                 case State.Game:
@@ -66,6 +71,11 @@ namespace YoketoruCS
                     labelGameover.Visible = true;
                     buttonToTitle.Visible = true;
                     break;
+                case State.Clear:
+                    labelClear.Visible = true;
+                    buttonToTitle.Visible = true;
+                    break;
+
             }
         }
 
@@ -85,6 +95,10 @@ namespace YoketoruCS
             {
                 nextState = State.Gameover;
             }
+            if (GetAsyncKeyState((int)Keys.C) < 0)
+            {
+                nextState = State.Clear;
+            }
         }
         private void buttonStart_Click(object sender, EventArgs e)
         {
@@ -94,6 +108,11 @@ namespace YoketoruCS
         private void buttonToTitle_Click(object sender, EventArgs e)
         {
             nextState = State.Title;
+        }
+
+        private void labelTitle_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

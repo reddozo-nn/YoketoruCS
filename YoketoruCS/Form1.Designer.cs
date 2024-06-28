@@ -34,6 +34,12 @@
             labelTitle = new Label();
             labelGameover = new Label();
             buttonToTitle = new Button();
+            labelClear = new Label();
+            labelScore = new Label();
+            labelTime = new Label();
+            tempEnemy = new Label();
+            tempitem = new Label();
+            tempplayer = new Label();
             SuspendLayout();
             // 
             // timer1
@@ -58,11 +64,13 @@
             // 
             labelTitle.AutoSize = true;
             labelTitle.Font = new Font("HGP創英角ｺﾞｼｯｸUB", 30F, FontStyle.Regular, GraphicsUnit.Point);
-            labelTitle.Location = new Point(309, 62);
+            labelTitle.ForeColor = SystemColors.ActiveCaption;
+            labelTitle.Location = new Point(293, 22);
             labelTitle.Name = "labelTitle";
             labelTitle.Size = new Size(204, 40);
             labelTitle.TabIndex = 1;
             labelTitle.Text = "よけとるCS";
+            labelTitle.Click += labelTitle_Click;
             // 
             // labelGameover
             // 
@@ -85,12 +93,82 @@
             buttonToTitle.UseVisualStyleBackColor = true;
             buttonToTitle.Click += buttonToTitle_Click;
             // 
+            // labelClear
+            // 
+            labelClear.AutoSize = true;
+            labelClear.Font = new Font("源ノ角ゴシック Code JP R", 33F, FontStyle.Bold, GraphicsUnit.Point);
+            labelClear.ForeColor = Color.Blue;
+            labelClear.Location = new Point(261, 53);
+            labelClear.Name = "labelClear";
+            labelClear.Size = new Size(230, 64);
+            labelClear.TabIndex = 4;
+            labelClear.Text = "CLEAR!!";
+            // 
+            // labelScore
+            // 
+            labelScore.AutoSize = true;
+            labelScore.Font = new Font("Yu Gothic UI", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
+            labelScore.Location = new Point(39, 394);
+            labelScore.Name = "labelScore";
+            labelScore.Size = new Size(33, 40);
+            labelScore.TabIndex = 5;
+            labelScore.Text = "0";
+            // 
+            // labelTime
+            // 
+            labelTime.AutoSize = true;
+            labelTime.Font = new Font("UD デジタル 教科書体 NK-B", 21.75F, FontStyle.Bold, GraphicsUnit.Point);
+            labelTime.ForeColor = SystemColors.ControlText;
+            labelTime.Location = new Point(770, 394);
+            labelTime.Name = "labelTime";
+            labelTime.Size = new Size(78, 34);
+            labelTime.TabIndex = 6;
+            labelTime.Text = "200";
+            // 
+            // tempEnemy
+            // 
+            tempEnemy.AutoSize = true;
+            tempEnemy.Font = new Font("Yu Gothic UI", 17F, FontStyle.Regular, GraphicsUnit.Point);
+            tempEnemy.ForeColor = Color.FromArgb(192, 0, 0);
+            tempEnemy.Location = new Point(377, 309);
+            tempEnemy.Name = "tempEnemy";
+            tempEnemy.Size = new Size(37, 31);
+            tempEnemy.TabIndex = 7;
+            tempEnemy.Text = "◆";
+            // 
+            // tempitem
+            // 
+            tempitem.AutoSize = true;
+            tempitem.Font = new Font("Yu Gothic UI", 17F, FontStyle.Regular, GraphicsUnit.Point);
+            tempitem.ForeColor = Color.FromArgb(0, 192, 0);
+            tempitem.Location = new Point(358, 359);
+            tempitem.Name = "tempitem";
+            tempitem.Size = new Size(37, 31);
+            tempitem.TabIndex = 8;
+            tempitem.Text = "●";
+            // 
+            // tempplayer
+            // 
+            tempplayer.AutoSize = true;
+            tempplayer.Font = new Font("Yu Gothic UI", 17F, FontStyle.Regular, GraphicsUnit.Point);
+            tempplayer.Location = new Point(439, 318);
+            tempplayer.Name = "tempplayer";
+            tempplayer.Size = new Size(63, 31);
+            tempplayer.TabIndex = 9;
+            tempplayer.Text = "ᔦꙬᔨ";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
             ClientSize = new Size(859, 471);
+            Controls.Add(tempplayer);
+            Controls.Add(tempitem);
+            Controls.Add(tempEnemy);
+            Controls.Add(labelTime);
+            Controls.Add(labelScore);
+            Controls.Add(labelClear);
             Controls.Add(buttonToTitle);
             Controls.Add(labelGameover);
             Controls.Add(labelTitle);
@@ -108,5 +186,11 @@
         private Label labelTitle;
         private Label labelGameover;
         private Button buttonToTitle;
+        private Label labelClear;
+        private Label labelScore;
+        private Label labelTime;
+        private Label tempEnemy;
+        private Label tempitem;
+        private Label tempplayer;
     }
 }
