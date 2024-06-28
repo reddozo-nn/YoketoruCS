@@ -130,7 +130,7 @@
             tempEnemy.AutoSize = true;
             tempEnemy.Font = new Font("Yu Gothic UI", 17F, FontStyle.Regular, GraphicsUnit.Point);
             tempEnemy.ForeColor = Color.FromArgb(192, 0, 0);
-            tempEnemy.Location = new Point(377, 309);
+            tempEnemy.Location = new Point(116, 237);
             tempEnemy.Name = "tempEnemy";
             tempEnemy.Size = new Size(37, 31);
             tempEnemy.TabIndex = 7;
@@ -141,17 +141,18 @@
             tempitem.AutoSize = true;
             tempitem.Font = new Font("Yu Gothic UI", 17F, FontStyle.Regular, GraphicsUnit.Point);
             tempitem.ForeColor = Color.FromArgb(0, 192, 0);
-            tempitem.Location = new Point(358, 359);
+            tempitem.Location = new Point(351, 401);
             tempitem.Name = "tempitem";
             tempitem.Size = new Size(37, 31);
             tempitem.TabIndex = 8;
             tempitem.Text = "●";
+            tempitem.Click += tempitem_Click;
             // 
             // tempplayer
             // 
             tempplayer.AutoSize = true;
             tempplayer.Font = new Font("Yu Gothic UI", 17F, FontStyle.Regular, GraphicsUnit.Point);
-            tempplayer.Location = new Point(439, 318);
+            tempplayer.Location = new Point(61, 159);
             tempplayer.Name = "tempplayer";
             tempplayer.Size = new Size(63, 31);
             tempplayer.TabIndex = 9;

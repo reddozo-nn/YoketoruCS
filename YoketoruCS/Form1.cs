@@ -12,6 +12,13 @@ namespace YoketoruCS
         static int EnemyMax => 4;//敵の方を先に宣言する(プレイヤーと敵は出っぱなしなため)
         static int ItemMax => 4;
 
+        static int PlayerIndex => 0;
+        static int EnemyIndex => PlayerIndex + PlayerMax;//1+0=1
+        static int ItemIndex => EnemyIndex + EnemyMax;//1+4=5
+        static int LabelMax => ItemIndex + EnemyMax;//5+4=9
+
+        Label[] labels = new Label[LabelMax];
+
         enum State
         {
             None = -1,
@@ -33,6 +40,35 @@ namespace YoketoruCS
         public Form1()
         {
             InitializeComponent();
+
+            for (int i = 0; i < LabelMax; i++)
+            {
+                labels[i] = new Label();
+                labels[i].AutoSize = true;
+                Controls.Add(labels[i]);
+
+                // Text, Font, ForeColorを、種類ごとに設定したい!!
+                if (i == PlayerIndex)
+                {
+                    labels[i].Text = tempplayer.Text;
+                    labels[i].Font = tempplayer.Font;
+                    labels[i].ForeColor = tempplayer.ForeColor;
+                }
+                else if (i > PlayerIndex && i < ItemIndex)
+                {
+                    labels[i].Text = tempEnemy.Text;
+                    labels[i].Font = tempEnemy.Font;
+                    labels[i].ForeColor = tempEnemy.ForeColor;
+                        labels[i].Location = new Point(100 + i * 35, 50);
+                }
+                if (i >= ItemIndex && i < LabelMax)
+                {
+                    labels[i].Text = tempitem.Text;
+                    labels[i].Font = tempitem.Font;
+                    labels[i].ForeColor = tempitem.ForeColor;
+                    labels[i].Location = new Point(100 + i * 35, 75);
+                }
+            }
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -111,6 +147,11 @@ namespace YoketoruCS
         }
 
         private void labelTitle_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tempitem_Click(object sender, EventArgs e)
         {
 
         }
