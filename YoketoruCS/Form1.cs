@@ -27,7 +27,7 @@ namespace YoketoruCS
 
         static int SpeedMax => 10;
 
-        int score = 0;
+        int score;
         int timer = 0;
 
         enum State
@@ -130,6 +130,7 @@ namespace YoketoruCS
                         vx[i]=random.Next(-SpeedMax,SpeedMax);
                         vy[i] = random.Next(-SpeedMax, SpeedMax);
                     }
+
                     score = 0;
                     timer = 200;
                     
@@ -191,7 +192,35 @@ namespace YoketoruCS
             {
                 nextState = State.Gameover;
             }
+            for(int i=EnemyIndex;  i < LabelMax; i++)
+            {
+                //Player‚ÌLabel‚Æd‚È‚Á‚Ä‚¢‚é‚©”»’f
+                if ((fpos.X > labels[i].Left)
+                && (fpos.Y > labels[i].Top)
+                && (fpos.X < labels[i].Right)
+                && (fpos.Y < labels[i].Bottom))
+                {
+                    if (i > PlayerIndex && i < ItemIndex)//d‚È‚Á‚½Label‚ª“G‚Ìê‡
+                    {
+                        nextState = State.Gameover;
+                    }
+                    else//“G‚¶‚á‚È‚¯‚ê‚ÎƒAƒCƒeƒ€ˆµ‚¢
+                    {
+                        labelScore.Text = $"{score}";
+                        score += timer * 100;
 
+                        
+                        for(int a=LabelMax; a >= ItemIndex; a--)
+                        {
+                            labels[i].Visible = false;
+                            if (a<ItemIndex)
+                            {
+                                nextState = State.Clear;
+                            }
+                        }
+                    }
+                }
+            }
         }
 
         void UpdateChrs()
