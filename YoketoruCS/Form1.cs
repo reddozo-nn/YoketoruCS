@@ -10,8 +10,8 @@ namespace YoketoruCS
         public static extern short GetAsyncKeyState(int vKey);
 
         static int PlayerMax => 1;
-        static int EnemyMax => 5;//敵の方を先に宣言する(プレイヤーと敵は出っぱなしなため)
-        static int ItemMax => 5;
+        static int EnemyMax => 4;//敵の方を先に宣言する(プレイヤーと敵は出っぱなしなため)
+        static int ItemMax => 4;
 
         static int PlayerIndex => 0;
         static int EnemyIndex => PlayerIndex + PlayerMax;//1+0=1
@@ -29,6 +29,8 @@ namespace YoketoruCS
 
         int score;
         int timer = 0;
+
+        int Visiblecounter = ItemIndex;
 
         enum State
         {
@@ -144,6 +146,7 @@ namespace YoketoruCS
                         vx[i] = 0;
                         vy[i] = 0;
                     }
+                    Visiblecounter = ItemIndex;
                         break;
                 case State.Clear:
                     labelClear.Visible = true;
@@ -153,7 +156,9 @@ namespace YoketoruCS
                         vx[i] = 0;
                         vy[i] = 0;
                     }
-                        break;
+                    Visiblecounter = ItemIndex;
+                    score = 0;
+                    break;
 
             }
         }
@@ -194,6 +199,7 @@ namespace YoketoruCS
             }
             for(int i=EnemyIndex;  i < LabelMax; i++)
             {
+                
                 //PlayerのLabelと重なっているか判断
                 if ((fpos.X > labels[i].Left)
                 && (fpos.Y > labels[i].Top)
@@ -206,17 +212,16 @@ namespace YoketoruCS
                     }
                     else//敵じゃなければアイテム扱い
                     {
+                        //得点加算
                         labelScore.Text = $"{score}";
                         score += timer * 100;
-
-                        
-                        for(int a=LabelMax; a >= ItemIndex; a--)
+                        //取ったアイテムのラベルを非表示にする
+                        labels[i].Visible = false;
+                        Visiblecounter++;
+                        //全部のアイテムをとったらゲームクリア
+                         if(Visiblecounter > LabelMax)
                         {
-                            labels[i].Visible = false;
-                            if (a<ItemIndex)
-                            {
-                                nextState = State.Clear;
-                            }
+                            nextState = State.Clear;
                         }
                     }
                 }
