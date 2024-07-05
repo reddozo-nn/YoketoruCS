@@ -1,4 +1,5 @@
 using Microsoft.VisualBasic.ApplicationServices;
+using System;
 using System.Runtime.InteropServices;
 
 namespace YoketoruCS
@@ -9,8 +10,8 @@ namespace YoketoruCS
         public static extern short GetAsyncKeyState(int vKey);
 
         static int PlayerMax => 1;
-        static int EnemyMax => 4;//敵の方を先に宣言する(プレイヤーと敵は出っぱなしなため)
-        static int ItemMax => 4;
+        static int EnemyMax => 5;//敵の方を先に宣言する(プレイヤーと敵は出っぱなしなため)
+        static int ItemMax => 5;
 
         static int PlayerIndex => 0;
         static int EnemyIndex => PlayerIndex + PlayerMax;//1+0=1
@@ -18,6 +19,16 @@ namespace YoketoruCS
         static int LabelMax => ItemIndex + EnemyMax;//5+4=9
 
         Label[] labels = new Label[LabelMax];
+
+        static Random random = new Random();
+
+        int[] vx = new int[LabelMax];
+        int[] vy = new int[LabelMax];
+
+        static int SpeedMax => 10;
+
+        int score = 0;
+        int timer = 0;
 
         enum State
         {
@@ -45,7 +56,12 @@ namespace YoketoruCS
             {
                 labels[i] = new Label();
                 labels[i].AutoSize = true;
+                labels[i].Visible = false;
                 Controls.Add(labels[i]);
+
+                tempplayer.Visible = false;
+                tempEnemy.Visible = false;
+                tempitem.Visible = false;
 
                 // Text, Font, ForeColorを、種類ごとに設定したい!!
                 if (i == PlayerIndex)
@@ -59,14 +75,14 @@ namespace YoketoruCS
                     labels[i].Text = tempEnemy.Text;
                     labels[i].Font = tempEnemy.Font;
                     labels[i].ForeColor = tempEnemy.ForeColor;
-                        labels[i].Location = new Point(100 + i * 35, 50);
+                    labels[i].Left = labels[i - 1].Left + labels[i - 1].Width;
                 }
-                if (i >= ItemIndex && i < LabelMax)
+                if (i >= ItemIndex)
                 {
                     labels[i].Text = tempitem.Text;
                     labels[i].Font = tempitem.Font;
                     labels[i].ForeColor = tempitem.ForeColor;
-                    labels[i].Location = new Point(100 + i * 35, 75);
+                    labels[i].Left = labels[i - 1].Left + labels[i - 1].Width;
                 }
             }
         }
@@ -75,17 +91,19 @@ namespace YoketoruCS
         {
             InitState();
             UpdateState();
+            UpdateChrs();
         }
 
         void InitState()
         {
+            
             if (nextState == State.None)
             {
                 return;//実行されたらメソッドを抜け、呼び出し元に処理を戻す
             }
             currentState = nextState;
             nextState = State.None;
-
+            
             // 初期化処理
             switch (currentState)
             {
@@ -101,16 +119,40 @@ namespace YoketoruCS
                 case State.Game:
                     labelTitle.Visible = false;
                     buttonStart.Visible = false;
+
+                    for (int i = 0; i < LabelMax; i++)
+                    {
+                        labels[i].Visible = true;
+
+                        labels[i].Left = random.Next(0, ClientSize.Width - labels[i].Width);
+                        labels[i].Top = random.Next(0, ClientSize.Height - labels[i].Height);
+
+                        vx[i]=random.Next(-SpeedMax,SpeedMax);
+                        vy[i] = random.Next(-SpeedMax, SpeedMax);
+                    }
+                    score = 0;
+                    timer = 200;
+                    
                     break;
 
                 case State.Gameover:
                     labelGameover.Visible = true;
                     buttonToTitle.Visible = true;
-                    break;
+                    for (int i = 0; i < LabelMax; i++)
+                    {
+                        vx[i] = 0;
+                        vy[i] = 0;
+                    }
+                        break;
                 case State.Clear:
                     labelClear.Visible = true;
                     buttonToTitle.Visible = true;
-                    break;
+                    for (int i = 0; i < LabelMax; i++)
+                    {
+                        vx[i] = 0;
+                        vy[i] = 0;
+                    }
+                        break;
 
             }
         }
@@ -134,6 +176,49 @@ namespace YoketoruCS
             if (GetAsyncKeyState((int)Keys.C) < 0)
             {
                 nextState = State.Clear;
+            }
+
+            //プレイヤー移動
+            var fpos = PointToClient(MousePosition);
+            labels[PlayerIndex].Left = fpos.X - labels[PlayerIndex].Width / 2;
+            labels[PlayerIndex].Top = fpos.Y - labels[PlayerIndex].Height / 2;
+
+            //キャラクターの更新
+            UpdateChrs();
+            timer--;
+            labelTime.Text = $"{timer}";
+            if(timer <= 0) 
+            {
+                nextState = State.Gameover;
+            }
+
+        }
+
+        void UpdateChrs()
+        {
+            //アイテムと敵の移動
+            
+            for (int i = EnemyIndex; i < LabelMax; i++)
+            {
+                labels[i].Left += vx[i];
+                labels[i].Top += vy[i];
+
+                if (labels[i].Left < 0)
+                {
+                    vx[i] = Math.Abs(vx[i]);
+                }
+                else if (labels[i].Left > (ClientSize.Width - labels[i].Width))
+                {
+                    vx[i] = -Math.Abs(vx[i]);
+                }
+                if (labels[i].Top < 0)
+                {
+                    vy[i] = Math.Abs(vy[i]);
+                }
+                else if (labels[i].Top > (ClientSize.Height - labels[i].Height))
+                {
+                    vy[i] = -Math.Abs(vy[i]);
+                }
             }
         }
         private void buttonStart_Click(object sender, EventArgs e)

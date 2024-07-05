@@ -65,7 +65,7 @@
             labelTitle.AutoSize = true;
             labelTitle.Font = new Font("HGP創英角ｺﾞｼｯｸUB", 30F, FontStyle.Regular, GraphicsUnit.Point);
             labelTitle.ForeColor = SystemColors.ActiveCaption;
-            labelTitle.Location = new Point(293, 22);
+            labelTitle.Location = new Point(309, 53);
             labelTitle.Name = "labelTitle";
             labelTitle.Size = new Size(204, 40);
             labelTitle.TabIndex = 1;
@@ -98,7 +98,7 @@
             labelClear.AutoSize = true;
             labelClear.Font = new Font("源ノ角ゴシック Code JP R", 33F, FontStyle.Bold, GraphicsUnit.Point);
             labelClear.ForeColor = Color.Blue;
-            labelClear.Location = new Point(261, 53);
+            labelClear.Location = new Point(309, 53);
             labelClear.Name = "labelClear";
             labelClear.Size = new Size(230, 64);
             labelClear.TabIndex = 4;
@@ -151,11 +151,11 @@
             // tempplayer
             // 
             tempplayer.AutoSize = true;
-            tempplayer.Font = new Font("Yu Gothic UI", 17F, FontStyle.Regular, GraphicsUnit.Point);
+            tempplayer.Font = new Font("Yu Gothic UI", 27F, FontStyle.Regular, GraphicsUnit.Point);
             tempplayer.Location = new Point(61, 159);
             tempplayer.Name = "tempplayer";
-            tempplayer.Size = new Size(63, 31);
-            tempplayer.TabIndex = 9;
+            tempplayer.Size = new Size(104, 48);
+            tempplayer.TabIndex = 927;
             tempplayer.Text = "ᔦꙬᔨ";
             // 
             // Form1
