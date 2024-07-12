@@ -40,6 +40,7 @@
             tempEnemy = new Label();
             tempitem = new Label();
             tempplayer = new Label();
+            labelhighscore = new Label();
             SuspendLayout();
             // 
             // timer1
@@ -158,12 +159,23 @@
             tempplayer.TabIndex = 927;
             tempplayer.Text = "ᔦꙬᔨ";
             // 
+            // labelhighscore
+            // 
+            labelhighscore.AutoSize = true;
+            labelhighscore.Font = new Font("Yu Gothic UI", 22F, FontStyle.Regular, GraphicsUnit.Point);
+            labelhighscore.Location = new Point(12, 353);
+            labelhighscore.Name = "labelhighscore";
+            labelhighscore.Size = new Size(152, 41);
+            labelhighscore.TabIndex = 928;
+            labelhighscore.Text = "ハイスコア:0";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
             ClientSize = new Size(859, 471);
+            Controls.Add(labelhighscore);
             Controls.Add(tempplayer);
             Controls.Add(tempitem);
             Controls.Add(tempEnemy);
@@ -193,5 +205,6 @@
         private Label tempEnemy;
         private Label tempitem;
         private Label tempplayer;
+        private Label labelhighscore;
     }
 }

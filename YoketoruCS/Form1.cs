@@ -27,10 +27,11 @@ namespace YoketoruCS
 
         static int SpeedMax => 10;
 
-        int score;
+        int score = 0;
         int timer = 0;
 
         int Visiblecounter = ItemIndex;
+        int highscore;
 
         enum State
         {
@@ -98,14 +99,14 @@ namespace YoketoruCS
 
         void InitState()
         {
-            
+
             if (nextState == State.None)
             {
                 return;//実行されたらメソッドを抜け、呼び出し元に処理を戻す
             }
             currentState = nextState;
             nextState = State.None;
-            
+
             // 初期化処理
             switch (currentState)
             {
@@ -116,6 +117,14 @@ namespace YoketoruCS
                     labelGameover.Visible = false;
                     buttonToTitle.Visible = false;
                     labelClear.Visible = false;
+
+                    //ハイスコア判定
+                    if(score > highscore)
+                    {
+                        highscore = score;
+                    }
+                    labelhighscore.Text = $"ハイスコア:{highscore}";
+                    
                     break;
 
                 case State.Game:
@@ -129,13 +138,12 @@ namespace YoketoruCS
                         labels[i].Left = random.Next(0, ClientSize.Width - labels[i].Width);
                         labels[i].Top = random.Next(0, ClientSize.Height - labels[i].Height);
 
-                        vx[i]=random.Next(-SpeedMax,SpeedMax);
+                        vx[i] = random.Next(-SpeedMax, SpeedMax);
                         vy[i] = random.Next(-SpeedMax, SpeedMax);
                     }
-
-                    score = 0;
-                    timer = 200;
                     
+                    timer = 200;
+
                     break;
 
                 case State.Gameover:
@@ -147,7 +155,8 @@ namespace YoketoruCS
                         vy[i] = 0;
                     }
                     Visiblecounter = ItemIndex;
-                        break;
+                    
+                    break;
                 case State.Clear:
                     labelClear.Visible = true;
                     buttonToTitle.Visible = true;
@@ -157,7 +166,7 @@ namespace YoketoruCS
                         vy[i] = 0;
                     }
                     Visiblecounter = ItemIndex;
-                    score = 0;
+                    
                     break;
 
             }
@@ -193,13 +202,13 @@ namespace YoketoruCS
             UpdateChrs();
             timer--;
             labelTime.Text = $"{timer}";
-            if(timer <= 0) 
+            if (timer <= 0)
             {
                 nextState = State.Gameover;
             }
-            for(int i=EnemyIndex;  i < LabelMax; i++)
+            for (int i = EnemyIndex; i < LabelMax; i++)
             {
-                
+
                 //PlayerのLabelと重なっているか判断
                 if ((fpos.X > labels[i].Left)
                 && (fpos.Y > labels[i].Top)
@@ -213,13 +222,16 @@ namespace YoketoruCS
                     else//敵じゃなければアイテム扱い
                     {
                         //得点加算
-                        labelScore.Text = $"{score}";
                         score += timer * 100;
-                        //取ったアイテムのラベルを非表示にする
-                        labels[i].Visible = false;
-                        Visiblecounter++;
+                        labelScore.Text = $"{score}";
+                        if (labels[i].Visible == true)
+                        {
+                            //取ったアイテムのラベルを非表示にする
+                            labels[i].Visible = false;
+                            Visiblecounter++;
+                        }
                         //全部のアイテムをとったらゲームクリア
-                         if(Visiblecounter > LabelMax)
+                        if (Visiblecounter == LabelMax)
                         {
                             nextState = State.Clear;
                         }
@@ -231,7 +243,7 @@ namespace YoketoruCS
         void UpdateChrs()
         {
             //アイテムと敵の移動
-            
+
             for (int i = EnemyIndex; i < LabelMax; i++)
             {
                 labels[i].Left += vx[i];
