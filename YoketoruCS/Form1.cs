@@ -119,12 +119,12 @@ namespace YoketoruCS
                     labelClear.Visible = false;
 
                     //ハイスコア判定
-                    if(score > highscore)
+                    if (score > highscore)
                     {
                         highscore = score;
                     }
                     labelhighscore.Text = $"ハイスコア:{highscore}";
-                    
+
                     break;
 
                 case State.Game:
@@ -141,7 +141,7 @@ namespace YoketoruCS
                         vx[i] = random.Next(-SpeedMax, SpeedMax);
                         vy[i] = random.Next(-SpeedMax, SpeedMax);
                     }
-                    
+                    score = 0;
                     timer = 200;
 
                     break;
@@ -155,7 +155,7 @@ namespace YoketoruCS
                         vy[i] = 0;
                     }
                     Visiblecounter = ItemIndex;
-                    
+
                     break;
                 case State.Clear:
                     labelClear.Visible = true;
@@ -166,7 +166,7 @@ namespace YoketoruCS
                         vy[i] = 0;
                     }
                     Visiblecounter = ItemIndex;
-                    
+
                     break;
 
             }

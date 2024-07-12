@@ -133,9 +133,9 @@
             tempEnemy.ForeColor = Color.FromArgb(192, 0, 0);
             tempEnemy.Location = new Point(116, 237);
             tempEnemy.Name = "tempEnemy";
-            tempEnemy.Size = new Size(37, 31);
+            tempEnemy.Size = new Size(33, 31);
             tempEnemy.TabIndex = 7;
-            tempEnemy.Text = "◆";
+            tempEnemy.Text = "✘";
             // 
             // tempitem
             // 
